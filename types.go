@@ -40,25 +40,25 @@ var (
 	}
 
 	nullableTypes map[string]string = map[string]string{
-		"int2":        "null.Int",
-		"int4":        "null.Int",
-		"int8":        "null.Int",
-		"float4":      "null.Float",
-		"float8":      "null.Float",
-		"numeric":     "null.Float",
-		"money":       "null.Float",
-		"bpchar":      "null.String",
-		"varchar":     "null.String",
-		"text":        "null.String",
+		"int2":        "sql.NullInt64",
+		"int4":        "sql.NullInt64",
+		"int8":        "sql.NullInt64",
+		"float4":      "sql.NullFloat64",
+		"float8":      "sql.NullFloat64",
+		"numeric":     "sql.NullFloat64",
+		"money":       "sql.NullFloat64",
+		"bpchar":      "sql.NullString",
+		"varchar":     "sql.NullString",
+		"text":        "sql.NullString",
 		"bytea":       "*[]byte",
 		"uuid":        "*uuid.UUID",
-		"timestamp":   "null.Time",
-		"timestamptz": "null.Time",
-		"time":        "null.Time",
-		"timetz":      "null.Time",
-		"date":        "null.Time",
-		"interval":    "null.Time",
-		"bool":        "null.Bool",
+		"timestamp":   "pq.NullTime",
+		"timestamptz": "pq.NullTime",
+		"time":        "pq.NullTime",
+		"timetz":      "pq.NullTime",
+		"date":        "pq.NullTime",
+		"interval":    "pq.NullTime",
+		"bool":        "sql.NullBool",
 		"bit":         "*uint32",
 		"varbit":      "*uint32",
 		"json":        "*struct{...}",
@@ -69,11 +69,11 @@ var (
 func getStruct(tab string, cols []*column) string {
 	var body string
 	for _, c := range cols {
-		body += fmt.Sprintf("\t%s %s `db:%s` // sqltype: %s\n",
+		body += fmt.Sprintf("\t%s %s `db:\"%s\"` // sqltype: %s\n",
 			snake2Camel(c.Name), convertType(c), c.Name, c.Type)
 	}
 
-	return fmt.Sprintf(tpl, snake2Camel(tab), body)
+	return fmt.Sprintf(tpl, getTableName(tab), body)
 }
 
 func getMap(n bool) map[string]string {

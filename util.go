@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"os"
 	"strings"
 )
@@ -17,6 +18,16 @@ func snake2Camel(word string) string {
 	}
 
 	return strings.Replace(strings.Title(strings.Join(words, " ")), " ", "", -1)
+}
+
+func getTableName(word string) string {
+	//ID should be always uppercas
+	words := strings.Split(word, ".")
+	if len(words) != 2 {
+		fmt.Println("table name is wrong")
+	}
+
+	return snake2Camel(words[1])
 }
 
 func saveToFile(name string, b []byte) error {

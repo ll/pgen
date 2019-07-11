@@ -49,7 +49,7 @@ func main() {
 	}
 	defer db.Close()
 
-	p := "models"
+	p := "model"
 	if options.PackageName != "" {
 		p = options.PackageName
 	}
