@@ -3,19 +3,10 @@
 CLI tool for generation Golang structures by table definition from PostgreSQL.
 
 ## Build
-Install Go vendor tool [govendor](https://github.com/kardianos/govendor) and run
 ```
-make build
+go build ./... 
 ```
 
-
-## Dependencies
-### For generated files
-`import "gopkg.in/guregu/null.v3"`
-Provides support for `null` values.
-
-`import "github.com/satori/go.uuid"`
-Provides support for `uuid.UUID` values.
 
 ## Help
 ```
