@@ -31,7 +31,8 @@ func getTableName(word string) string {
 }
 
 func saveToFile(name string, b []byte) error {
-	f, err := os.OpenFile(name+".go", os.O_CREATE|os.O_WRONLY|os.O_TRUNC, 0644)
+	words := strings.Split(name, ".")
+	f, err := os.OpenFile(words[len(words)-1]+".go", os.O_CREATE|os.O_WRONLY|os.O_TRUNC, 0644)
 	if err != nil {
 		return err
 	}
