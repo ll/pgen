@@ -14,10 +14,10 @@ const (
 var (
 	//key - pg type, value - go type
 	nonNullableTypes map[string]string = map[string]string{
-		"int2":        "int16",
-		"int4":        "int32",
-		"int8":        "int64",
-		"float4":      "float32",
+		"int2":        "int",
+		"int4":        "int",
+		"int8":        "int",
+		"float4":      "float64",
 		"float8":      "float64",
 		"numeric":     "float64",
 		"money":       "float64",

@@ -2,16 +2,18 @@
 
 CLI tool for generation Golang structures by table definition from PostgreSQL.
 
-## Build
+## Install
 ```
+dep ensure -v
 go build ./... 
+cp pgen yourPath/GOPATH/bin
 ```
 
 
 ## Help
 ```
 Usage:
-  go-pg-generator [OPTIONS]
+  pgen [OPTIONS]
 
 Application Options:
   -s, --server=         Server name or IP address (default: 127.0.0.1)
@@ -21,8 +23,7 @@ Application Options:
   -d, --database=       Database name.
   -t, --tables=         Tables to export.
       --ssl=            SSL mode (require|verify-full|verify-ca|disable) (default: disable)
-  -f, --file-per-table  Save each structure to its own .go file.
-      --package=        Package name for generated files.
+      --pkg=        Package name for generated files.
 
 Help Options:
   -h, --help            Show this help message

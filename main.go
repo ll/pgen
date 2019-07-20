@@ -18,8 +18,7 @@ type Options struct {
 	Database     string   `short:"d" long:"database" description:"Database name." required:"true"`
 	Tables       []string `short:"t" long:"tables" description:"Tables to export." required:"true"`
 	SSLMode      string   `long:"ssl" description:"SSL mode [require|verify-full|verify-ca|disable]" default:"disable"`
-	FilePerTable bool     `short:"f" long:"file-per-table" description:"Save each structure to its own .go file."`
-	PackageName  string   `long:"package" description:"Package name for generated files."`
+	PackageName  string   `long:"pkg" description:"Package name for generated files."`
 }
 
 func main() {
@@ -55,10 +54,6 @@ func main() {
 	}
 	d := fmt.Sprintf("package %s \n", p)
 
-	if !options.FilePerTable {
-		fmt.Println(d)
-	}
-
 	for _, t := range options.Tables {
 		cols, err := columnList(db, t)
 		if err != nil {
@@ -67,12 +62,8 @@ func main() {
 
 		data := getStruct(t, cols)
 
-		if options.FilePerTable {
-			if err := saveToFile(t, []byte(d+data)); err != nil {
-				log.Fatalln(err)
-			}
-			continue
+		if err := saveToFile(t, []byte(d+data)); err != nil {
+			log.Fatalln(err)
 		}
-		fmt.Println(data)
 	}
 }
