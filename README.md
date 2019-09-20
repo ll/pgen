@@ -23,7 +23,7 @@ Application Options:
   -d, --database=       Database name.
   -t, --tables=         Tables to export.
       --ssl=            SSL mode (require|verify-full|verify-ca|disable) (default: disable)
-      --pkg=        Package name for generated files.
+      --pkg=            Package name for generated files.
 
 Help Options:
   -h, --help            Show this help message

@@ -36,6 +36,7 @@ var (
 		"bit":         "uint32",
 		"varbit":      "uint32",
 		"json":        "struct{...}",
+		"jsonb":       "string",
 		"xml":         "struct{...}",
 	}
 
@@ -62,6 +63,7 @@ var (
 		"bit":         "*uint32",
 		"varbit":      "*uint32",
 		"json":        "*struct{...}",
+		"jsonb":       "sql.NullString",
 		"xml":         "*struct{...}",
 	}
 )
