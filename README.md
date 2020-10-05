@@ -4,9 +4,9 @@ CLI tool for generation Golang structures by table definition from PostgreSQL.
 
 ## Install
 ```
-dep ensure -v
+go mod tidy
 go build ./... 
-cp pgen yourPath/GOPATH/bin
+cp pgen $GOPATH/bin
 ```
 
 

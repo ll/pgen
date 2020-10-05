@@ -35,7 +35,7 @@ var (
 		"bool":        "bool",
 		"bit":         "uint32",
 		"varbit":      "uint32",
-		"json":        "struct{...}",
+		"json":        "string",
 		"jsonb":       "string",
 		"xml":         "struct{...}",
 	}
@@ -62,7 +62,7 @@ var (
 		"bool":        "sql.NullBool",
 		"bit":         "*uint32",
 		"varbit":      "*uint32",
-		"json":        "*struct{...}",
+		"json":        "sql.NullString",
 		"jsonb":       "sql.NullString",
 		"xml":         "*struct{...}",
 	}
@@ -86,12 +86,23 @@ func getMap(n bool) map[string]string {
 }
 
 func convertType(c *column) string {
-	t, ok := getMap(c.IsNull)[c.Type]
+	t, ok := getMap(c.IsNull && !c.IsArray)[c.Type]
 	if !ok {
 		log.Fatalln("unknown type: ", t)
 	}
 
 	if c.IsArray {
+		switch t {
+		case "bool":
+			return "pq.BoolArray"
+		case "float64":
+			return "pq.Float64Array"
+		case "int", "int64":
+			return "pq.Int64Array" // lib/pq 只支持 int64 :)
+		case "string":
+			return "pq.StringArray"
+		}
+
 		return "[]" + t
 	}
 	return t
